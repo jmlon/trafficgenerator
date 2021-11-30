@@ -1,0 +1,17 @@
+type: udp  
+repeat: 1 
+
+on: packet: 5 greedy length: const 100 dest: 10.38.35.182 1234   
+off: time: 1.5
+#on: time: 1.5 uniform 5 10 length: const 5 dest: 10.38.35.182 5678
+#on: time: 0.5 exponential 1 2 3 length: exponential 5 100 1000 dest: 10.38.35.182  9102   
+on: packet: 6 const 1 length: const 1500 dest: 10.38.35.182 1234   
+on: packet: 7 greedy length: uniform 100 1000 dest: 10.38.35.182 1234   
+#on: time: 8 uniform 10 20 length: uniform 100 1000 dest: 10.38.35.182 1234   
+
+off: time: 3.5
+
+
+end
+
+
