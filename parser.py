@@ -113,12 +113,13 @@ def on_destination(t):
     if token=='dest:':
         dst['addr']=t.pop(0)
         dst['port']=int(t.pop(0))
+        dst['mac']=t.pop(0)
     else:
         logger.error('Invalid destination')
     return dst
 
 
 if __name__ == "__main__":
-    parse_scenario('sample_scene')
+    parse_scenario('sample_scenery')
     print(scenario)
 
