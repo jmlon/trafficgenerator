@@ -16,7 +16,7 @@ from scapy.layers.inet import ICMP,IP,UDP,TCP
 
 logging.basicConfig(level=logging.WARN)
 logger = logging.getLogger("trafficgen")
-logger.setLevel(logging.WARN)
+logger.setLevel(logging.INFO)
 conf.verb = 0   # Verbosity level 0..2
 count=0
 
@@ -65,12 +65,13 @@ def udp_flow(flowspec,count):
         packet = IP(raw(packet))    # Compute len and checksum fields
         # logger.debug(packet.show(dump=True))
         if flow['interval']['mode']=='greedy':
-            # logger.info("{packet.summary()}, greedy qty={flow['quantity']['packets']}")
+            #logger.info(f"{packet.summary()}, greedy qty={flow['quantity']['packets']}")
             # sendp(packet, count=flow['quantity']['packets'], verbose=False, iface="eth0")
             # JM
             # packet_list = [IP(raw(IP(dst=flow['dest']['addr'])/UDP(dport=flow['dest']['port'])/Raw(load=f'{i:010d}{"0"*(payload_size-11)}'))) for i in range (flow['quantity']['packets'])]
             # JO
             packet_list = [IP(raw(Ether(dst=flow['dest']['mac'])/IP(dst=flow['dest']['addr'])/UDP(dport=flow['dest']['port'],sport=count)/Raw(load='{:010d}{:01462d}'.format(i,0)))) for i in range (flow['quantity']['packets'])]
+            logger.info("{packet.summary()}, greedy qty="+str(len(packet_list)))
             sendp(packet_list,verbose=False)
         elif flow['interval']['mode']=='const':
             logger.info("{packet.summary()}, const qty={flow['quantity']['packets']} inter={flow['interval']['time']}")

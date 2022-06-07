@@ -120,6 +120,6 @@ def on_destination(t):
 
 
 if __name__ == "__main__":
-    parse_scenario('sample_scenery')
+    parse_scenario('flow-10.0.0.2') #('sample_scenery')
     print(scenario)
 
